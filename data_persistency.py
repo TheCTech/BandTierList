@@ -68,9 +68,9 @@ class SavedData:
             logger.warning(f'Artist "{name}" already exists')
             return
 
-        self.data["artists"].append({
-            "name": name,
-            "notes": notes
+        self.data["artists"].insert(0, {
+        "name": name,
+        "notes": notes
         })
 
         self.save()

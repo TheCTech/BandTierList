@@ -5,7 +5,7 @@ package.name = bandtierlist
 package.domain = com.ramslayer
 
 source.dir = .
-source.include_exts = py
+source.include_exts = py,ttf
 source.exclude_dirs = .git,venv,logs,cache
 
 version = 0.1

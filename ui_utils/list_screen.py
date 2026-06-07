@@ -20,7 +20,7 @@ class ListScreen(Screen):
 
         top_bar = BoxLayout(
             size_hint=(1, None),
-            height=50,
+            height=75,
             padding=5
         )
 
@@ -29,7 +29,7 @@ class ListScreen(Screen):
         close_btn = Button(
             text="Close",
             size_hint=(None, 1),
-            width=100
+            width=125
         )
         close_btn.bind(on_press=self.go_back)
 
@@ -82,7 +82,7 @@ class ListScreen(Screen):
         for i, artist in enumerate(artists, start=1):
             row = BoxLayout(
                 size_hint_y=None,
-                height=40,
+                height=50,
                 spacing=10
             )
 
@@ -94,13 +94,17 @@ class ListScreen(Screen):
                 )
             )
 
-            row.add_widget(Label(text=artist["name"]))
+            name_label = Label(text=artist["name"])
+
+            row.add_widget(name_label)
 
             if not self.edit_mode:
                 edit_btn = Button(
-                    text="✎",
-                    size_hint=(None, 1),
-                    width=50
+                    text="\U0001F464",
+                    font_name="NotoEmoji-Regular.ttf",
+                    size_hint=(None, None),
+                    width=50,
+                    height=50
                 )
 
                 edit_btn.bind(
@@ -110,8 +114,12 @@ class ListScreen(Screen):
                 row.add_widget(edit_btn)
 
             elif artist["name"] == self.edit_mode_artist:
+                name_label.bold = True
+
                 up_btn = Button(
-                    text="⬆",
+                    text="\U0001F53C",
+                    background_color=(0, 0, 0, 0),
+                    font_name="NotoEmoji-Regular.ttf",
                     size_hint=(None, 1),
                     width=50
                 )
@@ -120,7 +128,9 @@ class ListScreen(Screen):
                 )
 
                 down_btn = Button(
-                    text="⬇",
+                    text="\U0001F53D",
+                    background_color=(0, 0, 0, 0),
+                    font_name="NotoEmoji-Regular.ttf",
                     size_hint=(None, 1),
                     width=50
                 )

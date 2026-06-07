@@ -24,19 +24,20 @@ class HomeScreen(Screen):
         add_row = BoxLayout(
             orientation="horizontal",
             size_hint=(1, None),
-            height=50,
+            height=60,
             spacing=10
         )
 
         self.add_artist_input = TextInput(
             hint_text="Artist name",
-            multiline=False
+            multiline=False,
+            height = 60
         )
 
         add_button = Button(
             text="Add",
             size_hint=(None, 1),
-            width=80
+            width=100
         )
         add_button.bind(on_press=self.on_add_artist)
 
@@ -53,19 +54,20 @@ class HomeScreen(Screen):
         search_row = BoxLayout(
             orientation="horizontal",
             size_hint=(1, None),
-            height=50,
+            height=60,
             spacing=10
         )
 
         self.search_input = TextInput(
             hint_text="Search artist",
-            multiline=False
+            multiline=False,
+            height = 60
         )
 
         search_button = Button(
             text="Search",
             size_hint=(None, 1),
-            width=100
+            width=150
         )
         search_button.bind(on_press=self.on_search_artist)
 
@@ -106,28 +108,20 @@ class HomeScreen(Screen):
         if not name:
             return
 
-        artists = self.saved_data.get("artists")
-
         self.add_artist_input.text = ""
-
         Clock.schedule_once(lambda dt: setattr(self.add_artist_input, "hint_text", "Artist name"), 3)
 
         if name not in BANDS:
             self.add_artist_input.hint_text = "Does not play (check spelling?)"
             return
 
-        if self.saved_data._find_artist_index(name) != None:
+        if self.saved_data._find_artist_index(name) is not None:
             self.add_artist_input.hint_text = "Already exists"
             return
 
-        artists.append({
-            "name": name,
-            "notes": ""
-        })
+        self.saved_data.add_artist(name, notes="")
 
-        self.saved_data.save()
         self.add_artist_input.hint_text = "Added"
-
         self.update_progress()
 
         list_screen = self.manager.get_screen("list_screen")

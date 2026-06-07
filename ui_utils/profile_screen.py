@@ -16,6 +16,8 @@ class ProfileScreen(Screen):
         self.edit_mode = False
         self.referrer = "home_screen"
 
+        self.delete_confirmation_awaiting = False
+
         root = BoxLayout(
             orientation="vertical",
             padding=15,
@@ -24,21 +26,24 @@ class ProfileScreen(Screen):
 
         top_bar = BoxLayout(
             size_hint=(1, None),
-            height=50,
+            height=60,
             spacing=10
         )
 
         self.edit_btn = Button(
-            text="✎",
-            size_hint=(None, 1),
-            width=60
+            text="\U0001F58D",
+            font_name="NotoEmoji-Regular.ttf",
+            size_hint=(None, None),
+            width=60,
+            height=60
         )
         self.edit_btn.bind(on_press=self.toggle_edit_mode)
 
         self.close_btn = Button(
             text="Close",
-            size_hint=(None, 1),
-            width=100
+            size_hint=(None, None),
+            width=125,
+            height=50
         )
         self.close_btn.bind(on_press=self.go_back)
 
@@ -50,8 +55,7 @@ class ProfileScreen(Screen):
             text="Artist Name",
             size_hint=(1, None),
             height=60,
-            font_size=24,
-            bold=True
+            font_size=48
         )
 
         self.position_label = Label(
@@ -62,7 +66,7 @@ class ProfileScreen(Screen):
 
         self.edit_row = BoxLayout(
             size_hint=(1, None),
-            height=40,
+            height=50,
             spacing=10
         )
 
@@ -71,21 +75,21 @@ class ProfileScreen(Screen):
         self.save_btn = Button(
             text="Save",
             size_hint=(None, 1),
-            width=90
+            width=200
         )
         self.save_btn.bind(on_press=self.save_artist)
 
         self.move_btn = Button(
             text="Move",
             size_hint=(None, 1),
-            width=90
+            width=200
         )
         self.move_btn.bind(on_press=self.move_artist)
 
         self.delete_btn = Button(
             text="Delete",
             size_hint=(None, 1),
-            width=90
+            width=200
         )
         self.delete_btn.bind(on_press=self.delete_artist)
 
@@ -106,7 +110,7 @@ class ProfileScreen(Screen):
 
         self.notes_input = TextInput(
             multiline=True,
-            readonly=True
+            disabled=True
         )
 
         root.add_widget(top_bar)
@@ -131,7 +135,7 @@ class ProfileScreen(Screen):
         self.notes_input.text = artist.get("notes", "")
 
         self.edit_mode = False
-        self.notes_input.readonly = True
+        self.notes_input.disabled = True
 
         self.edit_row.opacity = 0
         self.edit_row.disabled = True
@@ -139,14 +143,16 @@ class ProfileScreen(Screen):
     def toggle_edit_mode(self, instance):
         self.edit_mode = not self.edit_mode
 
-        self.notes_input.readonly = not self.edit_mode
+        self.notes_input.disabled = not self.edit_mode
 
         if self.edit_mode:
             self.edit_row.opacity = 1
             self.edit_row.disabled = False
+            Clock.schedule_once(lambda dt: setattr(self.notes_input, "focus", True), 0.1)
         else:
             self.edit_row.opacity = 0
             self.edit_row.disabled = True
+            self.save_artist(self.save_btn)
 
     def go_back(self, instance):
         self.manager.current = self.referrer
@@ -166,6 +172,18 @@ class ProfileScreen(Screen):
 
     def delete_artist(self, instance):
         if not self.artist:
+            return
+        
+        def reset_delete_button():
+            self.delete_confirmation_awaiting = False
+            self.delete_btn.text = "Delete"
+            self.delete_btn.background_color=(1, 1, 1, 1)
+
+        if not self.delete_confirmation_awaiting:
+            self.delete_confirmation_awaiting = True
+            self.delete_btn.text = "CONFIRM"
+            self.delete_btn.background_color=(1, 0, 0, 1)
+            Clock.schedule_once(lambda dt: reset_delete_button(), 3)
             return
 
         name = self.artist["name"]
