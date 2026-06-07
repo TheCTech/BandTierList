@@ -1,7 +1,7 @@
 [app]
 
-title = NovaRockTierlist
-package.name = novarocktl
+title = NovaRockTierList
+package.name = bandtierlist
 package.domain = com.ramslayer
 
 source.dir = .
@@ -10,7 +10,7 @@ source.exclude_dirs = .git,venv,logs,cache
 
 version = 0.1
 
-requirements = python3==3.10.13,hostpython3==3.10.13,setuptools,cython==0.29.33,kivy==2.3.0,Pillow
+requirements = python3==3.10.13,hostpython3==3.10.13,setuptools,cython==0.29.33,kivy==2.3.0,Pillow,colorlog
 
 orientation = portrait
 fullscreen = 0
