@@ -74,6 +74,12 @@ class HomeScreen(Screen):
         search_row.add_widget(self.search_input)
         search_row.add_widget(search_button)
 
+        self.next_artist_label = Label(
+            text="Next artist: ...",
+            size_hint=(1, None),
+            height=30
+        )
+
         progress_text_label = Label(
             text="Progress",
             size_hint=(1, None),
@@ -96,6 +102,7 @@ class HomeScreen(Screen):
         root.add_widget(add_row)
         root.add_widget(list_button)
         root.add_widget(search_row)
+        root.add_widget(self.next_artist_label)
         root.add_widget(progress_text_label)
         root.add_widget(self.progress_label)
         root.add_widget(self.progress_bar)
@@ -157,7 +164,18 @@ class HomeScreen(Screen):
         self.manager.current = "profile_screen"
     
     def update_progress(self):
-        artists_len = len(self.saved_data.get("artists"))
+        artists = self.saved_data.get("artists")
+        artists_len = len(artists)
 
         self.progress_label.text = f"({artists_len}/{len(BANDS)})"
         self.progress_bar.value = artists_len
+
+        # Suggested artist
+        set_artist_names = {artist["name"] for artist in artists}
+        first_missing = next(
+            (name for name in BANDS if name not in set_artist_names),
+            None
+        )
+
+        self.next_artist_label.text = "All done, congrats!!!" if first_missing == None else f"Next artist: {first_missing}"
+        

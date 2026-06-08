@@ -1,10 +1,10 @@
 # NovaRock 2026
 BANDS = [
-    "Bad Omens", "Sex Pistols", "Kaleo", "Trivium",
+    "Volbeat", "Bad Omens", "Sex Pistols", "Kaleo", "Trivium",
     "Tom Morello", "Feine Sahne Fischfilet", "Mastodon",
-    "Black Veil Brides", "Bilmuri", "Mittel Alta", "Lemo", "D'Artagnan",
+    "Black Veil Brides", "Bilmuri", "Mittel Alta", "Lemo", "Dartagnan",
     "Return to Dust", "Ego Kill Talent", "Shmiffy",
-    "Soul Asylum", "We Came As Romans", "The Molotovs", "Ankor", "Aurorawave", "Yungblud", "Caskets",
+    "Soul Asylum", "We Came As Romans", "The Molotovs", "Ankor", "Aurorawave", "Yunger", "Cassies",
 
     "The Cure", "The Offspring", "A Perfect Circle", "Ice Nine Kills",
     "Social Distortion", "Breaking Benjamin", "Black Label Society",
@@ -17,8 +17,8 @@ BANDS = [
     "Roy Bianco & Die Abbrunzati Boys", "Madsen", "All Time Low",
     "Kanonenfieber", "The Rasmus", "Kublai Khan TX", "Querbeat",
     "Bad Nerves", "Future Palace", "Nickelsdorfer Böhmische",
-    "Palaye Royale", "Lagwagon", "Loathe", "Küppengold", "Chuggaboom",
-    "Freyd", "A New Chapter", "Cousins",
+    "Palaye Royale", "Lagwagon", "Loathe", "Kupfergold", "Chuggaboom",
+    "Frevd", "A New Chapter", "Cousins",
 
     "Bring Me The Horizon", "Papa Roach", "Architects", "Three Days Grace",
     "Hollywood Undead", "P.O.D.", "Vola",
